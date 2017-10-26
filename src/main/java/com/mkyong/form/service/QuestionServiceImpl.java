@@ -41,7 +41,13 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public void delete(int id) {
-		questionDao.delete(id);
+		questionDao.deleteQuestion(id);
+	}
+	
+	@Override
+	public void deleteQuestion(Question question) {
+		questionDao.deleteAnswers(question.getAnswers());
+		questionDao.deleteQuestion(question.getId());
 	}
 
 }

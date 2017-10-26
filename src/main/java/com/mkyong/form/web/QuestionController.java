@@ -55,12 +55,6 @@ public class QuestionController {
 		this.questionService = questionService;
 	}
 
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String index(Model model) {
-//		logger.debug("index()");
-//		return "redirect:/users";
-//	}
-
 	// list page
 	@RequestMapping(value = "/questions", method = RequestMethod.GET)
 	public String showAllQuestions(Model model) {
@@ -92,12 +86,7 @@ public class QuestionController {
 			
 			questionService.saveOrUpdate(question);
 			
-			// POST/REDIRECT/GET
 			return "redirect:/questions/" + question.getId();
-
-			// POST/FORWARD/GET
-			// return "user/list";
-
 		}
 	}
 
@@ -191,12 +180,13 @@ public class QuestionController {
 	}
 	
 	// delete question
-	@RequestMapping(value = "/questions/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/questions/{id}/delete", method = RequestMethod.GET)
 	public String deleteQuestion(@PathVariable("id") int id, @ModelAttribute("questionForm") Question question) {
 
 		logger.debug("deleteQuestion() : {}", id);
+		Question questionToDelete = questionService.findById(id);
+		questionService.deleteQuestion(questionToDelete); 
 		System.out.println("id to delete : "+id);
-		List<Answer> answers = question.getAnswers();
 		
 		return "redirect:/questions";
 	}

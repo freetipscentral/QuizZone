@@ -51,7 +51,7 @@
 
 						<button class="btn btn-info" onclick="location.href='${questionUrl}'">Query</button>
 						<button class="btn btn-primary" onclick="location.href='${updateUrl}'">Update</button>
-						<button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
+						<button class="btn btn-danger" onclick="location.href='${deleteUrl}'">De11lete</button>
 					</td>
 				</tr>
 			</c:forEach>

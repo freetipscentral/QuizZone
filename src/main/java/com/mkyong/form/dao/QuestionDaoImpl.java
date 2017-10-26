@@ -152,10 +152,20 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void deleteQuestion(Integer id) {
 
 		String sql = "DELETE FROM QUESTIONS WHERE id= :id";
 		namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", id));
+	}
+	
+	@Override
+	public void deleteAnswers(List<Answer> answers) {
+		if(answers != null) {
+			for(Answer answer : answers) {
+				String sql = "DELETE FROM ANSWERS WHERE id= :id";
+				namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", answer.getId()));
+			}
+		}
 	}
 
 	private SqlParameterSource getSqlParameterByModel(Question question) {
