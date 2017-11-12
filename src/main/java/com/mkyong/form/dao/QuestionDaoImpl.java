@@ -127,6 +127,12 @@ public class QuestionDaoImpl implements QuestionDao {
 			namedParameterJdbcTemplate.update(answerSql, getSqlParameterByAnswerModel(answer), answerKeyHolder);
 			answer.setId(answerKeyHolder.getKey().intValue());
 		}
+		Answer rightAnswer = answers.get(question.getRightAnswer());
+		question.setRightAnswer(rightAnswer.getId());
+		
+		String updateRightAnswerSql = "UPDATE Questions SET RIGHTANSWER=:rightAnswer WHERE id=:id";
+		namedParameterJdbcTemplate.update(updateRightAnswerSql, getSqlParameterByModel(question));
+		
 	}
 
 	public int[] batchAddUsingJdbcTemplate(final List<Answer> answers) {

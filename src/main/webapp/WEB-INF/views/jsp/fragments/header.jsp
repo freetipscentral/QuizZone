@@ -13,6 +13,8 @@
 </head>
 
 <spring:url value="/" var="urlHome" />
+<spring:url value="/quiz" var="urlQuiz" />
+<spring:url value="/questions" var="urlAllQuestions" />
 <spring:url value="/users/add" var="urlAddUser" />
 <spring:url value="/questions/add" var="urlAddQuestion" />
 
@@ -23,8 +25,10 @@
 		</div>
 		<div id="navbar">
 			<ul class="nav navbar-nav navbar-right">
+				<li class="active"><a href="${urlQuiz}">Quiz</a></li>
 				<li class="active"><a href="${urlAddUser}">Add User</a></li>
 				<li class="active"><a href="${urlAddQuestion}">Add Question</a></li>
+				<li class="active"><a href="${urlAllQuestions}">Question List</a></li>
 			</ul>
 		</div>
 	</div>

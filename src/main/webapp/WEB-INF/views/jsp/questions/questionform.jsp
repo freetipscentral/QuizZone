@@ -38,7 +38,7 @@
 			</div>
 		</spring:bind>
 
-		<spring:bind path="rightAnswer">
+		<%-- <spring:bind path="rightAnswer">
 			<div class="form-group ${status.error ? 'has-error' : ''}">
 				<label class="col-sm-2 control-label">Right Answer</label>
 				<div class="col-sm-10">
@@ -46,7 +46,7 @@
 					<form:errors path="rightAnswer" class="control-label" />
 				</div>
 			</div>
-		</spring:bind>
+		</spring:bind> --%>
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
@@ -57,7 +57,9 @@
 						<c:forEach var="ans" items="${questionForm.answers}" varStatus="status">
 							<div class="col-sm-10">
 								<input name="answers[${status.index}].answer" value="${ans.answer}"/>
-								<input type="hidden" name="answers[${status.index}].id" value="${ans.id}"/>
+								
+								<%-- <form:radiobutton path="rightAnswer" class="form-control" value="${status.index}" /> --%>
+								<input type="radio"  name="rightAnswer" value="${status.index}"/>
 								<button type="button" value="${ans.id}" id="deleteAnswer-${ans.id}" class="btn-lg btn-danger pull-right">Delete</button>
 							</div>
 						</c:forEach>
@@ -70,6 +72,7 @@
 							<div class="col-sm-10">
 								<input name="answers[${status.index}].answer" value="${ans.answer}"/>
 								<input type="hidden" name="answers[${status.index}].id" value="${ans.id}"/>
+								<form:radiobutton path="rightAnswer" class="form-control" value="${ans.id}" />
 								<button type="button" value="${ans.id}" id="deleteAnswer-${ans.id}" class="btn-lg btn-danger pull-right">Delete</button>
 							</div>
 						</c:forEach>									

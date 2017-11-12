@@ -4,6 +4,7 @@ public class Answer {
 	Integer id;
 	String answer;
 	Integer questionId;
+	boolean rightAnswer;
 	
 	public Integer getId() {
 		return id;
@@ -22,6 +23,12 @@ public class Answer {
 	}
 	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
-	}	
+	}
+	public boolean isRightAnswer() {
+		return rightAnswer;
+	}
+	public void setRightAnswer(boolean rightAnswer) {
+		this.rightAnswer = rightAnswer;
+	}
 	
 }
