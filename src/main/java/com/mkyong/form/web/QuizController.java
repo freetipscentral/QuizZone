@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mkyong.form.service.QuizService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,26 +47,75 @@ public class QuizController {
 
 	private QuestionService questionService;
 
+	private QuizService quizService;
+
 	@Autowired
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
 	}
 
-	@RequestMapping(value = "/quiz", method = RequestMethod.GET)
+	@Autowired
+	public void setQuizService(QuizService quizService) {
+		this.quizService = quizService;
+	}
+
+	@RequestMapping(value = "/startQuiz", method = RequestMethod.GET)
 	public String showAllQuiz(Model model) {
 
 		logger.debug("showQuiz()");
-		System.out.println("Number of question "+questionService.findAll().size());
-		model.addAttribute("question", questionService.findAll().get(0));
+		List<Question> questions = questionService.findAll();
+		System.out.println("Number of question "+questions.size());
+		model.addAttribute("question", questions.get(0));
+		model.addAttribute("isFirst","true");
+		if(questions.size() > 1) {
+			model.addAttribute("isLast", "false");
+		} else {
+			model.addAttribute("isLast", "true");
+		}
 		return "quiz/startQuiz";
 	}
-	
-	@RequestMapping(value = "/quiz", method = RequestMethod.POST)
-	public String showResult(Model model) {
+
+	@RequestMapping(value = "/submitAnswer", method = RequestMethod.POST, params = { "next" })
+	public String showNext(@ModelAttribute("question") Question question, Model model) {
 
 		logger.debug("showResult()");
-		System.out.println("Number of question "+questionService.findAll().size());
-		model.addAttribute("question", questionService.findAll().get(0));
+		System.out.println("showNext ..");
+		List<Question> questions = questionService.findAll();
+		if(question == null) {
+			question = questions.get(0);
+		}
+		int id = question.getId();
+		String selectedAnswer = question.getSelectedAnswer();
+		int rightAnswer = question.getRightAnswer();
+		if(selectedAnswer != null) {
+			if(Integer.parseInt(selectedAnswer) == rightAnswer) {
+			}
+		}
+
+		Question nextQuestion = quizService.findNext(id, questions);
+		model.addAttribute("question", nextQuestion);
+		boolean isLast = quizService.isLast(nextQuestion.getId(), questions);
+		boolean isFirst = quizService.isFirst(nextQuestion.getId(), questions);
+		if(isLast) {
+			model.addAttribute("isLast", "true");
+		} else {
+			model.addAttribute("isLast", "false");
+		}
+		if(isFirst) {
+			model.addAttribute("isFirst", "true");
+		} else {
+			model.addAttribute("isFirst", "false");
+		}
+		System.out.println("Selected answer "+question.getSelectedAnswer());
+		return "quiz/startQuiz";
+	}
+
+	@RequestMapping(value = "/submitAnswer", method = RequestMethod.POST, params = { "submit" })
+	public String showResult(@ModelAttribute("question") Question question, Model model) {
+
+		logger.debug("showResult()");
+		System.out.println("showResult ..");
+		System.out.println("Selected answer "+question.getSelectedAnswer());
 		return "quiz/startQuiz";
 	}
 

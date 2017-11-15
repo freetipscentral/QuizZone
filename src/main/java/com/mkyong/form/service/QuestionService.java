@@ -15,5 +15,5 @@ public interface QuestionService {
 	void delete(int id);
 	
 	void deleteQuestion(Question question);
-	
+
 }

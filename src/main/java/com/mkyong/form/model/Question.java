@@ -9,6 +9,8 @@ public class Question {
 	// form:input - textbox
 	String questionText;
 
+	String selectedAnswer;
+
 	// form:input - textbox
 	Integer rightAnswer;
 	
@@ -49,5 +51,12 @@ public class Question {
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
 	}
-	
+
+	public String getSelectedAnswer() {
+		return selectedAnswer;
+	}
+
+	public void setSelectedAnswer(String selectedAnswer) {
+		this.selectedAnswer = selectedAnswer;
+	}
 }

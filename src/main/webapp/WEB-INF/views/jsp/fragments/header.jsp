@@ -13,7 +13,7 @@
 </head>
 
 <spring:url value="/" var="urlHome" />
-<spring:url value="/quiz" var="urlQuiz" />
+<spring:url value="/startQuiz" var="urlQuiz" />
 <spring:url value="/questions" var="urlAllQuestions" />
 <spring:url value="/users/add" var="urlAddUser" />
 <spring:url value="/questions/add" var="urlAddQuestion" />
